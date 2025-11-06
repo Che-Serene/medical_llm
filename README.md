@@ -2,38 +2,33 @@
   <img src="https://cdn-icons-png.flaticon.com/512/2966/2966327.png" width="120" alt="pill icon">
 </p>
 
-<h1 align="center">💊 의약품 정보 챗봇 프로젝트</h1>
+<h1 align="center">💊 의료 정보 상담챗봇 프로젝트</h1>
 
 <p align="center">
-  <strong>당신의 건강한 하루를 지키는 작은 AI 약사 🩺</strong><br><br>
+  <strong>당신의 건강한 하루를 지키는 작은 AI 에이전트 🩺</strong><br><br>
 </p>
 
 
-
+<div align=center> 
+  
 ## 🫂 프로젝트 소개  
+```
+ “이 약, 어떻게 먹어야 하지?”  
+ “두통약이랑 감기약 같이 먹어도 될까?”
+```
 
-> “이 약, 어떻게 먹어야 하지?”  
-> “두통약이랑 감기약 같이 먹어도 될까?”
 
-
-
- 우리의 **의약품 정보 챗봇**은<br>
+ 우리의 **의료 상담 챗봇**은<br>
  식품의약품안전처 공공데이터를 기반으로,<br>
  증상·약품명·효능·사용법·부작용 등 복잡한 정보를 쉽고 빠르게 알려주는<br>
  **RAG 기반(ChatGPT + 검색형)** 챗봇이에요. 👩‍⚕️<br><br>
+ 
+<br><br>
+
+##  SKILL STACK
 
 
-## 주요 기능 
-- **약품명/효능/사용법/부작용 질의응답**: 다양한 약품 정보를 자동으로 안내<br>
-- **유사도 기반 검색 및 요약**: NLP 임베딩을 이용해 가장 관련성이 높은 답변 제공<br>
-- **한국어 지원 인터페이스**: CLI 또는 웹 기반으로 누구나 이용<br>
-- **정확한 데이터 근거 답변**: 공식 데이터만 기반, 무책임 생성 응답 방지<br><br>
-
-
-##  기술 스택  
-
-
-<div align=left> 
+<div align=center> 
 <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" height="60"/>
 <img src="https://img.shields.io/badge/FAISS-111F68?style=for-the-badge&logo=meta&logoColor=white" height="60"/>
 <img src="https://img.shields.io/badge/LangChain-3C4F76?style=for-the-badge&logo=https://logo.svgcdn.com/simple-icons/langchain-dark.png&logoColor=white" height="60"/>
@@ -45,7 +40,7 @@
 
 </div><br><br>
 
-##  팀원 소개 
+##  CREW
 
 | 이름 | 역할 | 주요 담당 |
 |------|------|-----------|
@@ -54,7 +49,7 @@
 | **박현욱** | 💽 데이터·백엔드 | 데이터 전처리, DB 구축, API 구성 |
 | **황혜윤** | 💻 프론트엔드/UI | 챗봇 인터페이스 디자인 및 구현 (CLI·웹) |
 | **정지아** | 🩹 문서화/테스트 | 프로젝트 문서화, QA, 발표 자료 제작 |
-| **염한결** | 🚑 응급환자 | 엄한 회사에 발 묶이지 말고 무사귀환 🧘‍♀️ |
+| **염한결** | 🚑 Presenter | QA, 발표 자료 제작 |
 
 <br><br>
 
@@ -62,13 +57,20 @@
 
 ---
 
+<div align=left>
+<br><br>
+
+## 🖥️ 주요 기능 
+- **약품명/효능/사용법/부작용 질의응답**: 다양한 약품 정보를 자동으로 안내<br>
+- **유사도 기반 검색 및 요약**: NLP 임베딩을 이용해 가장 관련성이 높은 답변 제공<br>
+- **한국어 지원 인터페이스**: CLI 또는 웹 기반으로 누구나 이용<br>
+- **정확한 데이터 근거 답변**: 공식 데이터만 기반, 무책임 생성 응답 방지<br><br>
 
 <br><br>
-<br><br>
 
 
 
-## 🖥️ 직접 설치 및 실행 방법
+## 직접 설치 및 실행 방법
 webUI를 통해 모델을 사용할 수 있습니다.
 
 1. Python 3.8 이상 설치
