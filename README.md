@@ -58,7 +58,6 @@
 ---
 
 <div align=left>
-<br><br>
 
 ## 🖥️ 주요 기능 
 - **약품명/효능/사용법/부작용 질의응답**: 다양한 약품 정보를 자동으로 안내<br>
@@ -67,65 +66,6 @@
 - **정확한 데이터 근거 답변**: 공식 데이터만 기반, 무책임 생성 응답 방지<br><br>
 
 
-<br><br>
-
-
-
-## 직접 설치 및 실행 방법
-webUI를 통해 모델을 사용할 수 있습니다.
-
-1. Python 3.8 이상 설치
-2. 필수 패키지 설치:
-
-```
-pip install -r requirements.txt
-drugchat.py
-```
-
-
-
-
-## 프롬프트
-
-- [핵심] **4-Chain 구조**: Query Rewriter -> Router -> Summarizer -> Recommender
-- [핵심] **질문 재작성기(Contextualizer)** 를 추가하여 대화 맥락(Memory)을 '검색'에 반영
-- [핵심] **similarity_search_with_score와 THRESHOLD**를 적용하여 관련 없는 문서(GIGO) 검색 차단<br><br>
-
-
-```
-당신은 '대화 기록'을 바탕으로 '새 질문'을 독립적으로 검색 가능한 '완전한 질문'으로 재작성하는 AI입니다.
-  '새 질문'이 '그거', '저거', '어때' 등 맥락에 의존한다면, '대화 기록'을 참고하여 완전한 질문으로 만드세요.
-  '새 질문'이 이미 완전하다면, 그대로 반환하세요.
-  오직 재작성된 질문 '한 문장'만 대답하세요.
-```
-
-
-```
-당신은 사용자의 질문을 '약물', '질병', '수술' 세 가지 카테고리 중 하나로 분류하는 AI입니다.
-  - '약'에 대해 물으면 'drug'
-  - '병'이나 '증상'에 대해 물으면 'disease'
-  - '수술'이나 '시술'에 대해 물으면 'procedure'
-  - 어느 것에도 해당하지 않으면 'general'
-  이라고, 반드시 한 단어로만 대답하세요.
-```
-
-```
-당신은 '참고 자료'와 '대화 기록'을 바탕으로 사용자의 '현재 질문'에 답변하는 기계입니다.
-  [4대 원칙 (매우 중요)]"
-  1.  **자료 기반 답변 (Grounding):** 당신은 **오직** 제공된 '참고 자료'의 내용을 **요약**하거나 **인용**해야 합니다.
-  2.  **전문가 톤:** 불필요한 공감이나 대화체 문장을 **절대** 사용하지 마세요.
-  3.  **자료 없음 처리:** '참고 자료'가 "일치하는 항목을 찾지 못했습니다."라고 반환되면, "죄송합니다. 요청하신 내용과 일치하는 정보를 찾지 못했습니다."라고 답변해야 합니다.
-  4.  사용자의 '현재 질문'에 대한 답변 형식으로 요약하세요. '대화 기록'을 참고하여 맥락에 맞는 답변을 하세요.
-```
-
-```
-당신은 사용자에게 도움이 되는 '후속 질문'을 제안하는 AI 조수입니다.
-제공된 'AI 답변'을 바탕으로, 사용자가 다음에 궁금해할 만한 3가지의 짧고 관련성 높은 질문을 생성해주세요.
-  [중요 규칙]
-  - 'AI 답변'이 "죄송합니다", "찾지 못했습니다" 등 거절의 내용이라면, "정보 없음"이라고만 대답하세요.
-  - 각 질문은 '• '로 시작하고, 줄바꿈으로 구분합니다.
-  - 오직 3개의 질문만 생성하고, 다른 말은 절대 덧붙이지 마세요.
-```
 <br>
 
 ## 챗봇 질문 예시
@@ -140,8 +80,146 @@ drugchat.py
 7. "아스피린 복용 시 주의사항은?"
 ```
 
+<br><br>
 
-## 데이터셋
+---
+
+## 🛠️ 직접 설치 및 실행 방법
+
+### 사전 요구사항
+
+- Python 3.8 이상 (권장: 3.10+)
+- 최소 8GB RAM 및 5GB 디스크 공간
+- Ollama 설치 및 모델 다운로드 (로컬 LLM 필수)
+```
+#Ollama 공식 사이트에서 설치 (https://ollama.com/download)
+ollama --version
+#모델 다운로드
+ollama pull jeffh/intfloat-multilingual-e5-large-instruct:q8_0
+ollama pull llama3.1:8b
+```
+
+
+
+- 프로젝트 클론 및 의존성 설치
+```
+git clone https://github.com/your-repo/drug-info-chatbot.git
+cd drug-info-chatbot
+
+python -m venv venv
+Windows
+
+venv\Scripts\activate
+macOS/Linux
+
+source venv/bin/activate
+
+pip install -r requirements.txt
+```
+
+- 데이터 파일 준비
+```
+프로젝트 루트에 아래 파일이 필요합니다:
+- drugchat.py
+- requirements.txt
+- drug_list.json
+- textbook.csv
+- etc.csv
+```
+
+- 챗봇 실행
+
+```
+streamlit run drugchat.py
+#브라우저에서 http://localhost:8501 접속
+#최초 실행 시 FAISS 인덱스 생성에 5~10분 소요  
+#이후부터 즉시 시작됨
+```
+<br><br>
+
+
+## 문제 해결 (Troubleshooting)
+
+<details>
+<summary>Ollama 모델 오류</summary>
+  
+
+ollama serve
+ollama pull llama3.1:8b
+
+text
+</details>
+
+<details>
+<summary>faiss-cpu 설치 오류 (Apple Silicon)</summary>
+  
+
+pip uninstall faiss-cpu
+pip install faiss-cpu --no-cache-dir
+
+text
+</details>
+
+<details>
+<summary>메모리 부족 오류</summary>
+
+drugchat.py에서 k 값을 조정하세요.
+
+retrieved_docs_with_scores = vector_store_drug.similarity_search_with_score(query, k=5)
+
+text
+</details>
+
+<br><br>
+
+---
+
+## 🔧 프롬프트
+
+- [핵심] **4-Chain 구조**: Query Rewriter -> Router -> Summarizer -> Recommender
+- [핵심] **질문 재작성기(Contextualizer)** 를 추가하여 대화 맥락(Memory)을 '검색'에 반영
+- [핵심] **similarity_search_with_score와 THRESHOLD**를 적용하여 관련 없는 문서(GIGO) 검색 차단<br><br>
+
+1️⃣
+```
+당신은 '대화 기록'을 바탕으로 '새 질문'을 독립적으로 검색 가능한 '완전한 질문'으로 재작성하는 AI입니다.
+  '새 질문'이 '그거', '저거', '어때' 등 맥락에 의존한다면, '대화 기록'을 참고하여 완전한 질문으로 만드세요.
+  '새 질문'이 이미 완전하다면, 그대로 반환하세요.
+  오직 재작성된 질문 '한 문장'만 대답하세요.
+```
+
+2️⃣
+```
+당신은 사용자의 질문을 '약물', '질병', '수술' 세 가지 카테고리 중 하나로 분류하는 AI입니다.
+  - '약'에 대해 물으면 'drug'
+  - '병'이나 '증상'에 대해 물으면 'disease'
+  - '수술'이나 '시술'에 대해 물으면 'procedure'
+  - 어느 것에도 해당하지 않으면 'general'
+  이라고, 반드시 한 단어로만 대답하세요.
+```
+3️⃣
+```
+당신은 '참고 자료'와 '대화 기록'을 바탕으로 사용자의 '현재 질문'에 답변하는 기계입니다.
+  [4대 원칙 (매우 중요)]"
+  1.  **자료 기반 답변 (Grounding):** 당신은 **오직** 제공된 '참고 자료'의 내용을 **요약**하거나 **인용**해야 합니다.
+  2.  **전문가 톤:** 불필요한 공감이나 대화체 문장을 **절대** 사용하지 마세요.
+  3.  **자료 없음 처리:** '참고 자료'가 "일치하는 항목을 찾지 못했습니다."라고 반환되면, "죄송합니다. 요청하신 내용과 일치하는 정보를 찾지 못했습니다."라고 답변해야 합니다.
+  4.  사용자의 '현재 질문'에 대한 답변 형식으로 요약하세요. '대화 기록'을 참고하여 맥락에 맞는 답변을 하세요.
+```
+4️⃣
+```
+당신은 사용자에게 도움이 되는 '후속 질문'을 제안하는 AI 조수입니다.
+제공된 'AI 답변'을 바탕으로, 사용자가 다음에 궁금해할 만한 3가지의 짧고 관련성 높은 질문을 생성해주세요.
+  [중요 규칙]
+  - 'AI 답변'이 "죄송합니다", "찾지 못했습니다" 등 거절의 내용이라면, "정보 없음"이라고만 대답하세요.
+  - 각 질문은 '• '로 시작하고, 줄바꿈으로 구분합니다.
+  - 오직 3개의 질문만 생성하고, 다른 말은 절대 덧붙이지 마세요.
+```
+
+<br>
+
+
+## 📋 데이터셋
 
 [📚 **식품의약품안전처_의약품 개요정보(e약은요)**](https://www.data.go.kr/data/15075057/openapi.do)  
 
